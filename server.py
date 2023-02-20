@@ -33,11 +33,13 @@ while True:
     print("Received client's request, Your IP address is:",IP,"time:",t.ctime())   
     # For the exact time method I used geeksforgeeks
     d = socket() # creating the destination server
-    d.connect((IP,80)) # port 80 is standard port for HTTP 
-    print("Sending the client's request to the destination server at time:",t.ctime())#message
-    d.send(r.encode()) # sending to the destination server
+    try:
+        d.connect((IP,80)) # port 80 is standard port for HTTP 
+        print("Sending the client's request to the destination server at time:",t.ctime())#message
+        d.send(r.encode()) # sending to the destination server
 
-    if (socket.error == True): # for errors
+    except error:
+        
         err = "Error! unable to connect" #need to put error message in variable to send it to client and print it on server
         cc.send(err.encode()) #sending encoded message
         print(err) 
