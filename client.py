@@ -19,7 +19,7 @@ host=gethostname() #used to get the hostname of the current system
 IP = gethostbyname(host) # This function takes a string argument that specifies the domain name that you want to resolve,
 # and it returns the corresponding IP address as a string. (basically getting the IP adress from client)
 c.connect((IP,port)) # connect to server
-send = "GET / HTTP/1.1\r\nHost: "+x+"\r\n\r\n" #sending request
+send = "GET / HTTP/1.1\r\nHost: "+x+" \r\n\r\n" #sending request
 # similar to the request in the powerpoint on moodle, but instead of yahoo, i put the IP adress
 start = t.time() # starting time to measure later on the RTT
 print(x," ",send,"time sent to server:",t.ctime()) #request details
