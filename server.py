@@ -22,7 +22,7 @@ port = 4269 # ports 0-1023 are reserved, so i can use any port from 1024-49151, 
 host = gethostname() # used to get the hostname of the current system
 addIP = gethostbyname(host) # This function takes a string argument that specifies the domain name that you want to resolve,
 # and it returns the corresponding IP address as a string. (basically getting the IP adress from client)
-s.bind((addIP,port)) # bind socket to IP and port
+s.bind((host,port)) # bind socket to IP and port
 s.listen(1) # server awaiting TCP requests
 while True:
     cc,addr = s.accept() # server waits on accept for incoming requests
@@ -32,17 +32,17 @@ while True:
     IP = temp.split()[4]  # getting IP address form  message its the fifth word 
     print("Received client's request, Your IP address is:",IP,"time:",t.ctime())   
     # For the exact time method I used geeksforgeeks
-    d = socket() # creating the destination server
+    d = socket(AF_INET,SOCK_STREAM) # creating the destination server
     try:
         d.connect((IP,80)) # port 80 is standard port for HTTP 
         print("Sending the client's request to the destination server at time:",t.ctime())#message
         d.send(r.encode()) # sending to the destination server
 
-    except error:
-        
+    except socket.error:
         err = "Error! unable to connect" #need to put error message in variable to send it to client and print it on server
         cc.send(err.encode()) #sending encoded message
-        print(err) 
+        print(err)
+         
 
     x = d.recv(1024).decode() #receiving response from site
     print("The response was received at time:",t.ctime())#the response
